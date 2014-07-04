@@ -48,6 +48,7 @@ var processMember = function(member) {
 
 var processSubGroup = function(subGroup) {
 	var newRow = exposeHashToCSVRow(subGroupCol, subGroup);
+	newRow = mainGroupId + ',' + newRow;
 	if (strSubGroupJSON != '')
 		strSubGroupJSON = strSubGroupJSON + LINE_BREAK;
 	strSubGroupJSON = strSubGroupJSON + newRow;
@@ -58,8 +59,9 @@ var processGroup = function(group) {
 	if (strGroupJSON != '')
 		strGroupJSON = strGroupJSON + LINE_BREAK;
 	strGroupJSON = strGroupJSON + newRow;
+	mainGroupId = group.groupId;
 	group.subgroups.forEach(processSubGroup);
-	group.members.forEach(processMember);
+	// group.members.forEach(processMember);
 };
 
 
@@ -74,5 +76,5 @@ var convert = function() {
 	data.groups.forEach(processGroup);
 	document.getElementById('groupData').value = strGroupJSON;
 	document.getElementById('subGroupData').value = strSubGroupJSON;
-	document.getElementById('memberData').value = strMemberJSON;
+	// document.getElementById('memberData').value = strMemberJSON;
 }
